@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org/DTD Mapper 3.0//EN'
+	'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+<mapper namespace='gimsehyeon.yoyangscombine.dao.map.user.UserMap'>
+	<!-- 로그인 -->
+	<select id='selectUser' resultMap='userMap'>
+		select user_num, user_id, profile_img_filename,
+				join_date, user_name, password, num_of_report
+		from users
+		where user_id = #{userId}
+	</select>
+	
+	<resultMap id='userMap' type='user'>
+		<id 	property='userNum'				column='user_num'/>
+		<result	property='userId'				column='user_id'/>
+		<result property='profileImgFilename'	column='profile_img_filename'/>
+		<result property='joinDate'				column='join_date'/>
+		<result property='userName'				column='user_name'/>
+		<result property='password'				column='password'/>
+		<result property='numOfReport'			column='num_of_report'/>
+	</resultMap>
+	
+	<!-- 회원가입 -->
+	<insert id='insertUser'>
+		insert into users(user_num, user_id, user_name, join_date, password, num_of_report)
+		values(usernum_seq.nextval, #{userId}, #{userName}, sysdate, #{password}, 0)
+	</insert>
+</mapper>
